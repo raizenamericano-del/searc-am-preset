@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* palette (RGB triplets so Tailwind can apply alpha) */
+  --bg: 5 7 13;
+  --bg-soft: 9 13 23;
+  --bg-elevated: 14 20 34;
+  --bg-raised: 20 28 46;
+  --ink: 232 238 248;
+  --ink-muted: 160 173 196;
+  --ink-dim: 128 141 166;
+  --neon-cyan: 34 229 255;
+  --neon-violet: 168 85 247;
+  --neon-blue: 59 130 246;
+  --line: 148 163 184;
+  --success: 52 211 153;
+  --warn: 251 191 36;
+  --danger: 248 113 113;
+  --p-am: 34 229 255;
+  --p-xml: 251 191 36;
+  --p-capcut: 244 114 182;
+  --p-vn: 74 222 128;
+  --p-other: 148 163 184;
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+    overflow-x: hidden;
+    min-height: 100dvh;
+  }
+  ::selection {
+    background: rgb(var(--neon-cyan) / 0.3);
+  }
+  :focus-visible {
+    outline: 2px solid rgb(var(--neon-cyan));
+    outline-offset: 2px;
+    border-radius: 0.5rem;
+  }
+  input,
+  textarea {
+    font-size: 16px; /* prevents iOS zoom-on-focus */
+  }
+}
+
+@layer components {
+  .glass {
+    @apply border border-line/10 bg-bg-elevated/60 backdrop-blur-xl;
+  }
+  .card {
+    @apply rounded-xl border border-line/10 bg-bg-elevated/70 shadow-card;
+  }
+  .text-gradient {
+    background: linear-gradient(100deg, rgb(var(--neon-cyan)), rgb(var(--neon-blue)) 45%, rgb(var(--neon-violet)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .border-gradient {
+    position: relative;
+  }
+  .border-gradient::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgb(var(--neon-cyan) / 0.55), rgb(var(--neon-violet) / 0.15) 40%, rgb(var(--neon-violet) / 0.5));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .grid-bg {
+    background-image: linear-gradient(rgb(var(--line) / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--line) / 0.06) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%);
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
